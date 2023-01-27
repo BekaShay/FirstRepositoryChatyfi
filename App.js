@@ -2,12 +2,13 @@ import React from 'react';
 import {StyleSheet, Image, View} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
-import Chats from './src/Screens/ChatsScreen';
+import Chats from './src/Screens/ChatsBottom/ChatsScreen';
 import Profile from './src/Screens/ProfileScreen';
 import Groups from './src/Screens/GroupsScreen';
-import Contacts from './src/Screens/ContactsScreen';
-import {ChatsLogo, ContactsLogo, GroupsLogo} from './src/assets/iconsFile';
+import {ChatsLogo, ContactsLogo, GroupsLogo, ToDoLogo} from './src/assets/iconsFile';
 import {MainUser} from './src/data/Data';
+import Navigate from './src/Screens/ContactBottom/Navigate';
+import ToDo from './src/Screens/ToDo';
 
 const Tab = createBottomTabNavigator();
 
@@ -31,6 +32,8 @@ const App = () => {
               iconName = <GroupsLogo colorFocus={focused ? true : false} />;
             else if (route.name === 'Contacts')
               iconName = <ContactsLogo colorFocus={focused ? true : false} />;
+            else if (route.name === 'ToDo')
+              iconName = <ToDoLogo colorFocus={focused ? true : false} />;
             else if (route.name === 'Profile') {
               iconName = (
                 <View
@@ -60,7 +63,8 @@ const App = () => {
         })}>
         <Tab.Screen name="Chats" component={Chats} />
         <Tab.Screen name="Groups" component={Groups} />
-        <Tab.Screen name="Contacts" component={Contacts} />
+        <Tab.Screen name="Contacts" component={Navigate} />
+        <Tab.Screen name="ToDo" component={ToDo} />
         <Tab.Screen name="Profile" component={Profile} />
       </Tab.Navigator>
     </NavigationContainer>
