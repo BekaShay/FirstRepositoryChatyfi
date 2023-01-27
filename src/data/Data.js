@@ -60,7 +60,7 @@ export const GroupData = [
 export const UsersData = [
     {
         name: 'Darlene Robertson',
-        shortInfo: 'Sit gravida amet volutpat malesuada\ndouis rhoncus.',
+        shortInfo: 'Sit gravida amet volutpat malesuada douis rhoncus.',
         imageUri: require('../assets/UsersImage/unsplash_2sUmzkeSMP8DarleneRobertson.png'),
         followers: 1,
         status: true,

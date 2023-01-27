@@ -1,9 +1,9 @@
 import React from 'react';
 import {View, StyleSheet, Image, Text, FlatList} from 'react-native';
-import {AddChatLogo} from '../assets/iconsFile';
-import {GroupData, UsersData} from '../data/Data';
-import CircleButton from '../UI/components/CircleButton';
-import HeaderComponent from '../UI/components/HeaderComponent';
+import {AddChatLogo} from '../../assets/iconsFile';
+import {GroupData, UsersData} from '../../data/Data';
+import CircleButton from '../../UI/components/CircleButton';
+import HeaderComponent from '../../UI/components/HeaderComponent';
 
 const AllData = GroupData.concat(UsersData);
 
