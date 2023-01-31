@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {View, StyleSheet, Text, FlatList, TouchableOpacity} from 'react-native';
+import { ContactAlbumsController } from '../../apiController';
 import HeaderComponent from '../../UI/components/HeaderComponent';
+import { Urls } from './Urls';
 const axios = require('axios').default;
 
-const AlbomsDataUrl = 'https://jsonplaceholder.typicode.com/albums';
 
 const ContactPageScreen = ({navigation, route}) => {
   const [alboms, setAlboms] = useState({});
@@ -11,18 +12,27 @@ const ContactPageScreen = ({navigation, route}) => {
     getData();
   }, []);
 
-  const getData = () => {
-    axios
-      .get(AlbomsDataUrl, {params: {userId: route.params.id}})
-      .then(response => {
-        setAlboms(
-          response.data,
-        );
-      })
-      .catch(error => {
-        console.error('Error: ' + error);
-      });
+  const getData = async () => {
+    try {
+      const response = await ContactAlbumsController.get({params: {userId: route.params.id}});
+      setAlboms(response.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  // const getData = () => {
+  //   axios
+  //     .get(Urls.ContactAlbumsUrl, {params: {userId: route.params.id}})
+  //     .then(response => {
+  //       setAlboms(
+  //         response.data,
+  //       );
+  //     })
+  //     .catch(error => {
+  //       console.error('Error: ' + error);
+  //     });
+  // };
 
   const renderAlboms = ({item}) => {
     return (

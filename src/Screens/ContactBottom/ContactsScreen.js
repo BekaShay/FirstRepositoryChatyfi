@@ -1,38 +1,31 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Text, View, StyleSheet, FlatList, TouchableOpacity} from 'react-native';
 import HeaderComponent from '../../UI/components/HeaderComponent';
 import CircleButton from '../../UI/components/CircleButton';
-import {UsersData} from '../../data/Data';
 const axios = require('axios').default;
-const UsersDataUrl = 'https://jsonplaceholder.typicode.com/users';
+import {ContactController} from '../../apiController';
+import { MyContext } from '../../../ContextToken';
 
 const ContactsScreen = ({navigation}) => {
   const [contact, setContact] = useState({});
-
+  const {token, setToken} = useContext(MyContext);
   useEffect(() => {
     getData();
   }, []);
 
-  const getData = () => {
-
-    axios
-      .get(UsersDataUrl)
-      .then(response => {
-        console.log(response);
-
-        setContact(response.data);
-        
-      })
-      .catch(error => {
-        console.error('Error: ' + error);
-      });
+  const getData = async () => {
+    try {
+      const response = await ContactController.get();
+      setContact(response.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
-
 
   const renderItem = ({item}) => {
     return (
-      <TouchableOpacity onPress={() =>
-        navigation.navigate('ContactPageScreen', item)}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('ContactPageScreen', item)}>
         <View style={styles.ContactItem}>
           <View style={styles.ContactImage}></View>
           <View style={styles.ContactText}>
@@ -45,7 +38,7 @@ const ContactsScreen = ({navigation}) => {
       </TouchableOpacity>
     );
   };
-
+  
   return (
     <>
       <HeaderComponent
@@ -56,8 +49,7 @@ const ContactsScreen = ({navigation}) => {
         qrSwitch="none"
       />
       <View style={styles.Page}>
-      <TouchableOpacity
-          onPress={() => navigation.navigate('HooksScreen')}>
+        <TouchableOpacity onPress={() => navigation.navigate('HooksScreen')}>
           <View style={styles.ButtonPostImage}>
             <Text style={styles.ButtonPostTitle}>Hooks</Text>
           </View>
@@ -75,7 +67,6 @@ const ContactsScreen = ({navigation}) => {
     </>
   );
 };
-
 
 const styles = StyleSheet.create({
   NavigateBar: {
